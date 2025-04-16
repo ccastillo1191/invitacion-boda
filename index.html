@@ -32,17 +32,6 @@
       margin: 0.5rem 0 0;
     }
 
-    .countdown {
-      font-size: 2rem;
-      margin: 2rem 0;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
     .carousel {
       max-width: 500px;
       margin: 2rem auto;
@@ -106,6 +95,20 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       animation: fadeIn 2s ease-in-out;
     }
+
+    /* Estilo del contador flotante */
+    #contador {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: white;
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      font-size: 1.2rem;
+      font-weight: bold;
+      z-index: 999;
+    }
   </style>
 </head>
 <body>
@@ -115,6 +118,10 @@
     <h1>César & Sofía</h1>
   </header>
 
+  <!-- Contador flotante -->
+  <div id="contador"></div>
+
+  <!-- Carrusel de imágenes -->
   <div class="carousel" id="carousel">
     <img src="DSC01294.jpg" class="active" alt="Novios 1">
     <img src="DSC01160.jpg" alt="Novios 2">
@@ -164,42 +171,23 @@
   </footer>
 
   <script>
-    // Contador regresivo
-   <div id="contador"></div>
+    // Contador flotante
+    const contenedor = document.getElementById("contador");
+    const fechaBoda = new Date("2025-12-20T00:00:00").getTime();
 
-<script>
-  const contenedor = document.getElementById("contador");
-  const fechaBoda = new Date("2025-12-20T00:00:00").getTime();
+    setInterval(() => {
+      const ahora = new Date().getTime();
+      const distancia = fechaBoda - ahora;
 
-  setInterval(() => {
-    const ahora = new Date().getTime();
-    const distancia = fechaBoda - ahora;
+      const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
 
-    const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
-    const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+      contenedor.innerHTML = `${dias} días ${horas}h ${minutos}m ${segundos}s`;
+    }, 1000);
 
-    contenedor.innerHTML = `${dias} días ${horas}h ${minutos}m ${segundos}s`;
-  }, 1000);
-</script>
-
-<style>
-  #contador {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    background: white;
-    padding: 1rem 1.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    font-size: 1.2rem;
-    font-weight: bold;
-    z-index: 999;
-  }
-</style>
-
-    // Carrusel de imágenes
+    // Carrusel
     const images = document.querySelectorAll('#carousel img');
     let current = 0;
 
@@ -209,7 +197,7 @@
       images[current].classList.add('active');
     }, 3000);
 
-    // Confirmación de asistencia
+    // Confirmación asistencia
     const rsvpForm = document.getElementById('rsvpForm');
     rsvpForm.addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -237,5 +225,6 @@
       }
     });
   </script>
+
 </body>
 </html>
