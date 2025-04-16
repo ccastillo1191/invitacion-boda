@@ -115,8 +115,6 @@
     <h1>César & Sofía</h1>
   </header>
 
-  <div class="countdown" id="countdown"></div>
-
   <div class="carousel" id="carousel">
     <img src="DSC01294.jpg" class="active" alt="Novios 1">
     <img src="DSC01160.jpg" alt="Novios 2">
@@ -167,20 +165,39 @@
 
   <script>
     // Contador regresivo
-    const countdown = document.getElementById("countdown");
-    const targetDate = new Date("2025-12-20T00:00:00").getTime();
+   <div id="contador"></div>
 
-    setInterval(() => {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
+<script>
+  const contenedor = document.getElementById("contador");
+  const fechaBoda = new Date("2025-12-20T00:00:00").getTime();
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  setInterval(() => {
+    const ahora = new Date().getTime();
+    const distancia = fechaBoda - ahora;
 
-      countdown.innerHTML = `${days} días ${hours}h ${minutes}m ${seconds}s`;
-    }, 1000);
+    const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+    contenedor.innerHTML = `${dias} días ${horas}h ${minutos}m ${segundos}s`;
+  }, 1000);
+</script>
+
+<style>
+  #contador {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    font-size: 1.2rem;
+    font-weight: bold;
+    z-index: 999;
+  }
+</style>
 
     // Carrusel de imágenes
     const images = document.querySelectorAll('#carousel img');
