@@ -96,18 +96,59 @@
       animation: fadeIn 2s ease-in-out;
     }
 
-    /* Estilo del contador flotante */
+    /* Nuevo estilo del contador basado en la imagen */
     #contador {
       position: fixed;
       top: 1rem;
       right: 1rem;
       background: white;
-      padding: 1rem 1.5rem;
+      padding: 1rem;
       border-radius: 1rem;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      font-size: 1.2rem;
-      font-weight: bold;
+      font-family: 'EB Garamond', serif;
       z-index: 999;
+      text-align: center;
+      min-width: 180px;
+    }
+
+    .contador-titulo {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .contador-numeros {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .contador-numero {
+      font-size: 1.8rem;
+      font-weight: bold;
+      min-width: 2.5rem;
+      text-align: center;
+    }
+
+    .contador-etiquetas {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 0.5rem;
+    }
+
+    .contador-etiqueta {
+      flex: 1;
+      text-align: center;
+    }
+
+    .contador-separador {
+      font-size: 1.8rem;
+      line-height: 1;
     }
   </style>
 </head>
@@ -119,7 +160,21 @@
   </header>
 
   <!-- Contador flotante -->
-  <div id="contador"></div>
+  <div id="contador">
+    <div class="contador-titulo">Faltan</div>
+    <div class="contador-numeros">
+      <div class="contador-numero" id="dias">00</div>
+      <div class="contador-separador">:</div>
+      <div class="contador-numero" id="horas">00</div>
+      <div class="contador-separador">:</div>
+      <div class="contador-numero" id="minutos">00</div>
+    </div>
+    <div class="contador-etiquetas">
+      <div class="contador-etiqueta">Días</div>
+      <div class="contador-etiqueta">Horas</div>
+      <div class="contador-etiqueta">Minutos</div>
+    </div>
+  </div>
 
   <!-- Carrusel de imágenes -->
   <div class="carousel" id="carousel">
@@ -172,20 +227,25 @@
 
   <script>
     // Contador flotante
-    const contenedor = document.getElementById("contador");
     const fechaBoda = new Date("2025-12-20T00:00:00").getTime();
 
-    setInterval(() => {
+    function actualizarContador() {
       const ahora = new Date().getTime();
       const distancia = fechaBoda - ahora;
 
       const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
       const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
-      const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+      
+      // Formatear con dos dígitos
+      document.getElementById('dias').textContent = dias.toString().padStart(2, '0');
+      document.getElementById('horas').textContent = horas.toString().padStart(2, '0');
+      document.getElementById('minutos').textContent = minutos.toString().padStart(2, '0');
+    }
 
-      contenedor.innerHTML = `${dias} días ${horas}h ${minutos}m ${segundos}s`;
-    }, 1000);
+    // Actualizar inmediatamente y luego cada segundo
+    actualizarContador();
+    setInterval(actualizarContador, 1000);
 
     // Carrusel
     const images = document.querySelectorAll('#carousel img');
