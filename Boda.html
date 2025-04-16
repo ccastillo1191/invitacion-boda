@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invitación de Boda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=EB+Garamond&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'EB Garamond', serif;
+      background: #f8f1e7;
+      color: #4b3621;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #d9cbb5;
+      padding: 2rem;
+    }
+
+    header h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin: 0.5rem 0 0;
+    }
+
+    .countdown {
+      font-size: 2rem;
+      margin: 2rem 0;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .carousel {
+      max-width: 500px;
+      margin: 2rem auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .carousel img {
+      width: 100%;
+      display: none;
+    }
+
+    .carousel img.active {
+      display: block;
+    }
+
+    form {
+      text-align: left;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.4rem;
+      font-family: 'EB Garamond', serif;
+    }
+
+    button {
+      background: #4b3621;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #3a2b1a;
+      transform: scale(1.05);
+    }
+
+    footer {
+      background: #d9cbb5;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+
+    section {
+      padding: 2rem;
+    }
+
+    iframe {
+      border-radius: 1rem;
+      width: 100%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      animation: fadeIn 2s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Nos Casamos</h1>
+    <h1>César & Sofía</h1>
+  </header>
+
+  <div class="countdown" id="countdown"></div>
+
+  <div class="carousel" id="carousel">
+    <img src="DSC01294.jpg" class="active" alt="Novios 1">
+    <img src="DSC01160.jpg" alt="Novios 2">
+    <img src="DSC01071.jpg" alt="Novios 3">
+  </div>
+
+  <section>
+    <h2 style="font-family: 'Great Vibes', cursive; font-size: 2.5rem;">¿Puedes acompañarnos?</h2>
+    <form id="rsvpForm" style="max-width: 500px; margin: auto;">
+      <label>Nombre:</label>
+      <input type="text" name="nombre" required />
+
+      <label>¿Quién es tu acompañante?:</label>
+      <input type="number" name="acompanante" min="0" required />
+
+      <label>Mensaje (opcional):</label>
+      <textarea name="mensaje" rows="3"></textarea>
+
+      <button type="submit">Confirmar asistencia</button>
+    </form>
+    <p id="respuestaRSVP" style="text-align: center; color: green; margin-top: 1rem;"></p>
+  </section>
+
+  <section>
+    <h2 style="font-family: 'Great Vibes', cursive; font-size: 2rem;">Ubicación del evento</h2>
+    <p>Jardín Green Box, Cerro Alux, San Lucas Sacatepéquez </p>
+    <div style="max-width: 600px; margin: auto;">
+      <div style="margin: 1rem 0;">
+        <a href="https://www.google.com/maps/search/?api=1&query=14%C2%B036%2753.9%22N+90%C2%B038%2732.9%22W" target="_blank" style="text-decoration: none;">
+          <button class="map-button">¿Cómo llegar?</button>
+        </a>
+      </div>
+
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.2631329345733!2d-90.6424862!3d14.6149735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8589a1be8d3c5ebf%3A0x7f9e77f30cd6576d!2sGreen%20Box!5e0!3m2!1ses-419!2sgt!4v1713201454001!5m2!1ses-419!2sgt" 
+        width="100%" 
+        height="300" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </section>
+
+  <footer>
+    Con amor, César & Sofía 💍
+  </footer>
+
+  <script>
+    // Contador regresivo
+    const countdown = document.getElementById("countdown");
+    const targetDate = new Date("2025-12-20T00:00:00").getTime();
+
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdown.innerHTML = `${days} días ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+
+    // Carrusel de imágenes
+    const images = document.querySelectorAll('#carousel img');
+    let current = 0;
+
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+    }, 3000);
+
+    // Confirmación de asistencia
+    const rsvpForm = document.getElementById('rsvpForm');
+    rsvpForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const formData = {
+        nombre: rsvpForm.nombre.value,
+        acompanantes: rsvpForm.acompanante.value,
+        mensaje: rsvpForm.mensaje.value,
+      };
+
+      const respuesta = await fetch('https://script.google.com/macros/s/AKfycbwlfLWH59ck2EO0SMTFa8YRnZL5of0xNvCiTrGfqQixtUvYfJGVG5rHYbyHVwb_MkdSvQ/exec', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      const result = await respuesta.json();
+      if (result.result === "success") {
+        document.getElementById('respuestaRSVP').textContent = "¡Gracias por confirmar! ❤️";
+        rsvpForm.reset();
+      } else {
+        document.getElementById('respuestaRSVP').textContent = "Algo salió mal, intenta de nuevo.";
+      }
+    });
+  </script>
+</body>
+</html>
