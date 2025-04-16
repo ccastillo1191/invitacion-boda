@@ -101,14 +101,15 @@
       position: fixed;
       top: 1rem;
       right: 1rem;
-      background: white;
+      background: rgba(255, 255, 255, 0.85); /* Fondo más transparente */
       padding: 1rem;
       border-radius: 1rem;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       font-family: 'EB Garamond', serif;
       z-index: 999;
       text-align: center;
-      min-width: 180px;
+      min-width: 220px; /* Un poco más ancho para los segundos */
+      backdrop-filter: blur(2px); /* Efecto de desenfoque para mejor legibilidad */
     }
 
     .contador-titulo {
@@ -168,11 +169,14 @@
       <div class="contador-numero" id="horas">00</div>
       <div class="contador-separador">:</div>
       <div class="contador-numero" id="minutos">00</div>
+      <div class="contador-separador">:</div>
+      <div class="contador-numero" id="segundos">00</div>
     </div>
     <div class="contador-etiquetas">
       <div class="contador-etiqueta">Días</div>
       <div class="contador-etiqueta">Horas</div>
       <div class="contador-etiqueta">Minutos</div>
+      <div class="contador-etiqueta">Segundos</div>
     </div>
   </div>
 
@@ -236,11 +240,13 @@
       const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
       const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
       
       // Formatear con dos dígitos
       document.getElementById('dias').textContent = dias.toString().padStart(2, '0');
       document.getElementById('horas').textContent = horas.toString().padStart(2, '0');
       document.getElementById('minutos').textContent = minutos.toString().padStart(2, '0');
+      document.getElementById('segundos').textContent = segundos.toString().padStart(2, '0');
     }
 
     // Actualizar inmediatamente y luego cada segundo
